@@ -3,7 +3,9 @@ using ProjetoModeloDDD.Application.Interfaces;
 using ProjetoModeloDDD.Domain.Interfaces.Repositories;
 using ProjetoModeloDDD.Domain.Interfaces.Services;
 using ProjetoModeloDDD.Domain.Services;
+using ProjetoModeloDDD.Infra.Data.Context;
 using ProjetoModeloDDD.Infra.Data.Repositories;
+using System.Data.Entity;
 using Unity;
 using Unity.Lifetime;
 
@@ -13,6 +15,8 @@ namespace ProjetoModeloDDD.IoC.Unity
     {
         public static void Resolve(UnityContainer container)
         {
+            container.RegisterType <DbContext, ProjetoModeloDDDContext>(new HierarchicalLifetimeManager());
+
             //Application
             container.RegisterType(typeof(IAppServiceBase<>), typeof(AppServiceBase<>));
             container.RegisterType<IClienteAppService, ClienteAppService>(new HierarchicalLifetimeManager());

@@ -6,14 +6,15 @@ using AutoMapper;
 using ProjetoModeloDDD.Domain.Entities;
 using System.Web.Http.Description;
 using ProjetoModeloDDD.Application;
+using ProjetoModeloDDD.Domain.Interfaces.Services;
 
 namespace ProjetoModeloDDD.WebApi.Controllers
 {
     public class ClienteController : ApiController
     {
-        public IClienteAppService _clienteApp;
+        public IClienteService _clienteApp;
 
-        public ClienteController(IClienteAppService clienteApp)
+        public ClienteController(IClienteService clienteApp)
         {
             _clienteApp = clienteApp;
         }
@@ -23,8 +24,7 @@ namespace ProjetoModeloDDD.WebApi.Controllers
         [Route("cliente/getAll")]
         public IEnumerable<ClienteViewModel> GetAll()
         {
-
-            return null;
+            return Mapper.Map<IEnumerable<Cliente>, IEnumerable<ClienteViewModel>>(_clienteApp.GetAll());
         }
     }
 }
